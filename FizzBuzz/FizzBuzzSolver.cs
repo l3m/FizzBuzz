@@ -8,6 +8,7 @@ namespace FizzBuzz
 {
     public class FizzBuzzSolver : FizzBuzz.IFizzBuzzSolver
     {
+        private IDictionary<int, string> _strings = new Dictionary<int, string> {{1 , "Fizz"}, {2 , "Buzz"}, {3 , "FizzBuzz"}}; 
         public string Solve(int numberToPrint)
         {
             int x = 0;
@@ -15,20 +16,9 @@ namespace FizzBuzz
                 x |= 1;
             if (numberToPrint%5 == 0)
                 x |= 2;
-            switch (x)
-            {
-                case 1:
-                    return "Fizz";
-                    break;
-                case 2:
-                    return "Buzz";
-                    break;
-                case 3:
-                    return "FizzBuzz";
-                    break;
-                default:
-                    return numberToPrint.ToString();
-            }
+
+            string s;
+            return _strings.TryGetValue(x, out s) ? s : numberToPrint.ToString();
         }
     }
 }
